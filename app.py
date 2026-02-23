@@ -8,7 +8,7 @@ app.config["UPLOAD_FOLDER"] = "static/images"
 @app.route("/api/signup", methods={"POST"})
 def signup():
     # code to execute
-    username = request.form["username"]
+    username = request.form["username"] 
     email = request.form["email"]
     phone = request.form["phone"]
     password = request.form["password"]
@@ -101,11 +101,24 @@ def addProduct():
 
     return jsonify({"message":"product added succesfully"})
 
+@app.route("/api/get_products")
+def getProducts():
+    connection = pymysql.connect(host="localhost", user="root", password="", database="alvin_sokogarden")
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+    sql = "select * from product_details "
+    cursor.execute(sql)
+
+    if cursor.rowcount == 0:
+        return jsonify({"message": "out of stock"})
+    else:
+        # fetch products
+        products = cursor.fetchall()
+        return jsonify (products)
+
+
 
 
     
-
-
 
 if __name__=="__main__":
     app.run(debug=True)
