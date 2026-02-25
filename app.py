@@ -136,6 +136,7 @@ def mpesa_payment():
     if request.method == 'POST':
         amount = request.form['amount']
         phone = request.form['phone']
+        
         # GENERATING THE ACCESS TOKEN
         # create an account on safaricom daraja
         consumer_key = "GTWADFxIpUfDoNikNGqq1C3023evM6UH"
